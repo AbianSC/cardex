@@ -1,0 +1,69 @@
+/* Fondo con degradado y estilo mobile centrado */
+.home {
+  --background: linear-gradient(160deg, #4f46e5 0%, #22c55e 100%);
+  color: #fff;
+
+  .title {
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* Contenedor centrado vertical/horizontal */
+  .hero {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centra vertical */
+    align-items: center;     /* centra horizontal */
+    text-align: center;
+    gap: 14px;
+    padding: 24px;
+  }
+
+  .logo {
+    width: 88px; height: 88px;
+    border-radius: 24px;
+    display: grid; place-items: center;
+    background: rgba(255,255,255,0.16);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    animation: float 3.5s ease-in-out infinite;
+
+    ion-icon {
+      font-size: 46px;
+      color: #ffffff;
+    }
+  }
+
+  h1 {
+    margin: 6px 0 0;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: .5px;
+  }
+
+  .tagline {
+    margin: 2px 0 10px;
+    opacity: 0.92;
+    font-weight: 500;
+  }
+
+  .cta {
+    --border-radius: 999px;
+    --padding-start: 22px;
+    --padding-end: 18px;
+    width: min(420px, 90vw);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+  }
+}
+
+/* Animación suave del logo */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* Modo oscuro (si lo usas) */
+:host-context(body[color-theme="dark"]) .home {
+  --background: linear-gradient(160deg, #4338ca 0%, #16a34a 100%);
+}

@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Cars</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding mycars">
+
+  <!-- Formulario Create / Update -->
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">Brand</ion-label>
+      <ion-input formControlName="brand"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Model</ion-label>
+      <ion-input formControlName="model"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Color</ion-label>
+      <ion-input formControlName="color"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Year</ion-label>
+      <ion-input type="number" formControlName="year"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Mileage (km)</ion-label>
+      <ion-input type="number" formControlName="mileage"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">License plate</ion-label>
+      <ion-input formControlName="licensePlate"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="form.invalid" shape="round">
+      <ion-icon slot="start" name="save-outline"></ion-icon>
+      {{ editId ? 'Update' : 'Create' }}
+    </ion-button>
+
+    <ion-button *ngIf="editId" expand="block" color="medium" (click)="cancelEdit()" shape="round">
+      <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+      Cancel
+    </ion-button>
+  </form>
+
+  <!-- Sección -->
+  <ion-item lines="full">
+    <ion-label>Cars</ion-label>
+  </ion-item>
+
+  <!-- Lista -->
+  <ion-list *ngIf="cars?.length; else empty">
+    <ion-item *ngFor="let c of cars">
+      <ion-label (click)="show(c)">
+        <h2>{{ c.brand }} {{ c.model }}</h2>
+        <p>{{ c.color }} • {{ c.year }} • {{ c.mileage }} km • {{ c.licensePlate }}</p>
+      </ion-label>
+
+      <ion-button fill="clear" (click)="edit(c)" aria-label="Edit">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" color="danger" (click)="remove(c.id!)" aria-label="Delete">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Vacío -->
+  <ng-template #empty>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>No cars yet</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Create your first car using the form above.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+
+  <!-- Detalle -->
+  <ion-card *ngIf="selected">
+    <ion-card-header>
+      <ion-card-title>{{ selected.brand }} {{ selected.model }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Color: {{ selected.color }}</p>
+      <p>Year: {{ selected.year }}</p>
+      <p>Mileage: {{ selected.mileage }} km</p>
+      <p>License: {{ selected.licensePlate }}</p>
+      <ion-button expand="block" (click)="closeDetail()" shape="round">
+        Close
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+
+

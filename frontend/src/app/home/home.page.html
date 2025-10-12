@@ -1,0 +1,23 @@
+<ion-header translucent="true">
+  <ion-toolbar color="transparent">
+    <ion-title class="title">CARDEX</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="home">
+  <div class="hero">
+    <div class="logo">
+      <ion-icon name="car-sport-outline"></ion-icon>
+    </div>
+
+    <h1>Cardex</h1>
+    <p class="tagline">“Log it. Find it. Drive it.”</p>
+
+    <ion-button size="large" shape="round" class="cta" (click)="gotoMyCars()">
+      Show cars
+      <ion-icon slot="end" name="arrow-forward-circle-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
+
+
