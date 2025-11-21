@@ -57,9 +57,17 @@
     <ion-label>Cars</ion-label>
   </ion-item>
 
-  <!-- Lista -->
-  <ion-list *ngIf="cars?.length; else empty">
-    <ion-item *ngFor="let c of cars">
+  <!-- Buscador -->
+  <ion-searchbar
+    placeholder="Search brand, model or plate…"
+    (ionInput)="onSearch($event)"
+    showClearButton="focus"
+    animated="true">
+  </ion-searchbar>
+
+  <!-- Lista (usa filteredCars) -->
+  <ion-list *ngIf="filteredCars?.length; else empty">
+    <ion-item *ngFor="let c of filteredCars">
       <ion-label (click)="show(c)">
         <h2>{{ c.brand }} {{ c.model }}</h2>
         <p>{{ c.color }} • {{ c.year }} • {{ c.mileage }} km • {{ c.licensePlate }}</p>
@@ -69,7 +77,7 @@
         <ion-icon slot="icon-only" name="create-outline"></ion-icon>
       </ion-button>
 
-      <ion-button fill="clear" color="danger" (click)="remove(c.id!)" aria-label="Delete">
+      <ion-button fill="clear" color="danger" (click)="confirmRemove(c)" aria-label="Delete">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
     </ion-item>
@@ -104,6 +112,8 @@
   </ion-card>
 
 </ion-content>
+
+
 
 
 

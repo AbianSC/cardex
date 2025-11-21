@@ -13,11 +13,25 @@
     <h1>Cardex</h1>
     <p class="tagline">“Log it. Find it. Drive it.”</p>
 
+    <!-- CTA principal -->
     <ion-button size="large" shape="round" class="cta" (click)="gotoMyCars()">
       Show cars
       <ion-icon slot="end" name="arrow-forward-circle-outline"></ion-icon>
     </ion-button>
+
+    <!-- Acciones rápidas -->
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; width: min(420px, 90vw);">
+      <ion-button fill="outline" shape="round" routerLink="/customers">
+        <ion-icon slot="start" name="people-outline"></ion-icon>
+        Customers
+      </ion-button>
+      <ion-button fill="outline" shape="round" routerLink="/inquiries">
+        <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
+        Inquiries
+      </ion-button>
+    </div>
   </div>
 </ion-content>
+
 
 

@@ -17,11 +17,13 @@ app.use(express.urlencoded({ extended: true}));
 
 const db = require("./models");
 // normal use. Doesn't delete the database data
-// db.sequelize.sync();
+
+db.sequelize.sync().then(() => {
+  console.log("DB sync OK");
 
 // In development, you may need to drop existing tables and re.sync database
-db.sequelize.sync({ force: true}).then(() => {
-    console.log("Drop and re-sync db.");
+//db.sequelize.sync({ force: true}).then(() => {
+ //   console.log("Drop and re-sync db.");
 });
 
 // simple route
@@ -30,6 +32,9 @@ app.get("/", (req, res) => {
 });
 
 require("./routes/cardex.routes")(app);
+require("./routes/customer.routes")(app);
+require("./routes/inquiry.routes")(app);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

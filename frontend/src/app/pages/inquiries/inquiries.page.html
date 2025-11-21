@@ -1,0 +1,62 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/home"></ion-back-button></ion-buttons>
+    <ion-title>Inquiries</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <ion-item>
+      <ion-label>Customer</ion-label>
+      <ion-select formControlName="customerId" interface="popover" placeholder="Select customer">
+        <ion-select-option *ngFor="let c of customers" [value]="c.id">{{ c.name }} ({{ c.email }})</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Car</ion-label>
+      <ion-select formControlName="carId" interface="popover" placeholder="Select car">
+        <ion-select-option *ngFor="let car of cars" [value]="car.id">{{ car.brand }} {{ car.model }} ({{car.licensePlate}})</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Message</ion-label>
+      <ion-input formControlName="message"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Status</ion-label>
+      <ion-select formControlName="status" interface="popover">
+        <ion-select-option value="new">new</ion-select-option>
+        <ion-select-option value="contacted">contacted</ion-select-option>
+        <ion-select-option value="closed">closed</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="form.invalid">{{ editId ? 'Update' : 'Create' }}</ion-button>
+    <ion-button *ngIf="editId" expand="block" color="medium" (click)="cancel()">Cancel</ion-button>
+  </form>
+
+  <ion-item lines="full"><ion-label>Inquiries</ion-label></ion-item>
+  <ion-list>
+    <ion-item *ngFor="let i of inquiries">
+      <ion-label>
+        <h2>
+          {{ i.customer?.name || ('Customer ' + i.customerId) }}
+          <ion-chip [color]="i.status === 'closed' ? 'success' : (i.status === 'contacted' ? 'warning' : 'medium')" class="ion-margin-start">
+            {{ i.status }}
+          </ion-chip>
+        </h2>
+        <p>
+          {{ i.car?.brand }} {{ i.car?.model }} ({{ i.car?.licensePlate }}) • {{ i.message }}
+        </p>
+      </ion-label>
+
+      <ion-button fill="clear" (click)="edit(i)"><ion-icon name="create-outline"></ion-icon></ion-button>
+      <ion-button fill="clear" color="danger" (click)="confirmDelete(i)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

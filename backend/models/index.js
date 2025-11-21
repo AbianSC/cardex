@@ -20,5 +20,15 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.cardex = require("./cardex.model.js")(sequelize, Sequelize);
+db.customer = require("./customer.model.js")(sequelize, Sequelize);
+db.inquiry  = require("./inquiry.model.js")(sequelize, Sequelize);
+
+// Un Customer tiene muchas Inquiries
+db.customer.hasMany(db.inquiry, { foreignKey: { allowNull: false } });
+db.inquiry.belongsTo(db.customer);
+
+// Un Car tiene muchas Inquiries
+db.cardex.hasMany(db.inquiry, { foreignKey: { allowNull: false } });
+db.inquiry.belongsTo(db.cardex);
 
 module.exports = db;
